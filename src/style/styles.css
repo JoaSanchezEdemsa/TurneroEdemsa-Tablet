@@ -105,7 +105,7 @@ form .text h3 a:hover {
 form .input-box select.dropdown {
   height: 52px;
   width: 100%;
-  padding: 0 15px;
+  padding: 0 40px 0 15px; /* Aumenta el padding derecho para hacer espacio para la flecha */
   font-size: 17px;
   font-weight: 400;
   color: #333;
@@ -113,7 +113,7 @@ form .input-box select.dropdown {
   border-bottom-width: 2.5px;
   border-radius: 6px;
   transition: all 0.3s ease;
-  appearance: none; 
+  appearance: none;
   background-color: white;
   background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDEyIDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEgMUw2IDZMMTEgMSIgc3Ryb2tlPSIjMDA3MEY0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==') no-repeat right 15px center;
   background-size: 16px;
