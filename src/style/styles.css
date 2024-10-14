@@ -21,6 +21,12 @@ body{
   border-radius: 6px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 }
+.wrapper h1 {
+  margin-bottom: 10px;
+}
+.wrapper p {
+  margin-top: 0;
+}
 .wrapper h2{
   position: relative;
   font-size: 22px;
@@ -109,10 +115,33 @@ form .input-box select.dropdown {
     background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDEyIDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEgMUw2IDZMMTEgMSIgc3Ryb2tlPSIjMDA3MEY0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==') no-repeat right 15px center;
     background-size: 16px;
   }
-  
   form .input-box select.dropdown:focus,
   form .input-box select.dropdown:valid {
     border-color: #C7BEBE;
   }
-  
-  
+  .button-group {
+    display: flex;
+    flex-direction: column; /* Cambiar a columna para alinear los botones verticalmente */
+    gap: 10px;
+    margin-top: 18px;
+}
+.reason-button {
+    background-color: #f0f0f0;
+    border: 1.5px solid #c7bebe;
+    border-radius: 6px;
+    padding: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    font-size: 16px;
+    color: #333;
+    width: 100%; /* Ocupar toda la anchura del contenedor */
+    text-align: center;
+}
+.reason-button:hover {
+    background-color: #e0e0e0;
+}
+.reason-button.selected {
+    background-color: #4070f4;
+    color: #fff;
+    border-color: #4070f4;
+}

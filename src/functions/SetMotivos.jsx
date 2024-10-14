@@ -10,37 +10,45 @@ function SelectReason() {
     const navigate = useNavigate();
     const selectedBranch = localStorage.getItem('selectedBranch');
 
-    // Cargar motivos según la sucursal seleccionada
     useEffect(() => {
         if (!selectedBranch) {
-            navigate('/'); // Redirigir al inicio si no se seleccionó una sucursal
+            navigate('/');
             return;
         }
 
         async function fetchReasons() {
             try {
-                const response = await axios.post(`http://turnero:8080/getmotivosbysucursal/${selectedBranch}`);
-                setReasons(response.data);
+                const response = await axios.get(`http://turnero:8080/getmotivos`, {
+                    params: { COD_UNICOM: selectedBranch }
+                });
+
+                if (Array.isArray(response.data.result)) {
+                    setReasons(response.data.result);
+                } else {
+                    setReasons([]);
+                    setError('No se pudo cargar la lista de motivos.');
+                }
             } catch (err) {
                 console.error('Error al obtener los motivos:', err);
                 setError('No se pudo cargar la lista de motivos.');
+                setReasons([]);
             }
         }
         fetchReasons();
     }, [selectedBranch, navigate]);
 
-    // Manejar la selección del motivo
-    function handleReasonChange(event) {
-        setSelectedReason(event.target.value);
+    function handleReasonChange(reasonId) {
+        setSelectedReason(reasonId);
     }
 
-    // Manejar el envío del formulario
     async function handleSubmit(event) {
         event.preventDefault();
 
         if (!selectedReason) {
             setError('Por favor, seleccione un motivo.');
             return;
+        } else {
+            localStorage.setItem('motivo', selectedReason);
         }
 
         try {
@@ -48,19 +56,17 @@ function SelectReason() {
             const nombre = localStorage.getItem('nombre');
             const data = { dni, nombre, motivo: selectedReason, sucursal: selectedBranch };
 
-            // Hacer el POST a la API externa
-            const response = await axios.post('http://api.edemsa.local/turnero/turnos', data, {
+            const response = await axios.post('http://turnero:8080/submitmotivo', data, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
 
             if (response.status === 200) {
-                // Eliminar datos del localStorage
                 localStorage.removeItem('dni');
                 localStorage.removeItem('nombre');
                 localStorage.removeItem('motivo');
-                navigate('/'); // Redirigir al inicio
+                navigate('/turnolisto');
             } else {
                 setError('Error al enviar la solicitud. Por favor, inténtelo nuevamente.');
             }
@@ -74,25 +80,24 @@ function SelectReason() {
         <div className="wrapper">
             <h2>Seleccione Motivo de la Consulta</h2>
             <form onSubmit={handleSubmit}>
-                <div className="input-box">
-                    <select 
-                        className="dropdown"
-                        value={selectedReason}
-                        onChange={handleReasonChange}
-                        required
-                    >
-                        <option value="" disabled>Seleccione un motivo</option>
-                        {reasons.map(reason => (
-                            <option key={reason.id} value={reason.nombre}>
-                                {reason.nombre}
-                            </option>
-                        ))}
-                    </select>
+                <div className="button-group">
+                    {reasons.map(reason => (
+                        <button
+                            key={reason.id}
+                            type="button"
+                            className={`reason-button ${selectedReason === reason.id ? 'selected' : ''}`}
+                            onClick={() => handleReasonChange(reason.id)}
+                        >
+                            {reason.motivo}
+                        </button>
+                    ))}
                 </div>
                 {error && <p className="text-danger">{error}</p>}
-                <div className="input-box button">
-                    <input type="submit" value="Confirmar" />
-                </div>
+                {selectedReason && (
+                    <div className="input-box button">
+                        <input type="submit" value="Confirmar" />
+                    </div>
+                )}
             </form>
         </div>
     );

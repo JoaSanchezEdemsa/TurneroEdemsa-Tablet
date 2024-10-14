@@ -69,9 +69,11 @@ function SelectBranch() {
                     </select>
                 </div>
                 {error && <p className="text-danger">{error}</p>}
-                <div className="input-box button">
-                    <input type="submit" value="Confirmar" />
-                </div>
+                {selectedBranch && (
+                    <div className="input-box button">
+                        <input type="submit" value="Confirmar" />
+                    </div>
+                )}
             </form>
         </div>
     );
