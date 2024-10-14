@@ -3,94 +3,78 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../style/styles.css';
 
-function SelectSucursal() {
-    const [sucursales, setSucursales] = useState([]);
-    const [selectedSucursal, setSelectedSucursal] = useState('');
+function SelectBranch() {
+    const [branches, setBranches] = useState([]);
+    const [selectedBranch, setSelectedBranch] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    // Cargar las sucursales desde la API al montar el componente
+    // Cargar la sucursal seleccionada del localStorage y redirigir si ya existe
     useEffect(() => {
-        async function fetchSucursales() {
-            try {
-                const response = await axios.post('http://turnero:8080/getsucursales');
-                console.log(response.data);
-                if (response.data.success && Array.isArray(response.data.result)) {
-                    setSucursales(response.data.result);
-                } else {
-                    console.error('La respuesta no es válida:', response.data);
-                    setError('Error: la respuesta de la API no es válida.');
-                }
-            } catch (err) {
-                console.error('Error al obtener sucursales:', err);
-                setError('Hubo un error al cargar las sucursales.');
-            }
-        }
-
-        fetchSucursales();
-
-        // Cargar sucursal seleccionada desde el localStorage si existe
-        const savedSucursal = localStorage.getItem('sucursal');
-        if (savedSucursal) {
-            setSelectedSucursal(savedSucursal);
-            navigate('/paso1'); // Redirigir si ya se seleccionó previamente una sucursal
+        const savedBranch = localStorage.getItem('selectedBranch');
+        if (savedBranch) {
+            setSelectedBranch(savedBranch);
+            navigate('/paso1');
         }
     }, [navigate]);
 
+    // Obtener las sucursales desde la API
+    useEffect(() => {
+        async function fetchBranches() {
+            try {
+                const response = await axios.get('http://turnero:8080/getsucursales');
+                setBranches(response.data);
+            } catch (err) {
+                console.error('Error al obtener las sucursales:', err);
+                setError('No se pudo cargar la lista de sucursales.');
+            }
+        }
+        fetchBranches();
+    }, []);
+
     // Manejar la selección de una sucursal
-    function handleSucursalChange(event) {
+    function handleBranchChange(event) {
         const selected = event.target.value;
-        setSelectedSucursal(selected);
-        localStorage.setItem('sucursal', selected); // Guardar en localStorage
+        setSelectedBranch(selected);
+        localStorage.setItem('selectedBranch', selected);
     }
 
-    // Enviar formulario y redirigir
-    async function handleSubmit(event) {
+    // Manejar el envío del formulario
+    function handleSubmit(event) {
         event.preventDefault();
-        if (selectedSucursal) {
-            try {
-                navigate('/paso1');
-            } catch (err) {
-                console.error('Error al procesar la selección de sucursal:', err);
-                setError('Hubo un error al procesar tu solicitud.');
-            }
+        if (selectedBranch) {
+            navigate('/paso1');
         } else {
-            setError('Por favor seleccione una sucursal.');
+            setError('Por favor, seleccione una sucursal.');
         }
     }
 
     return (
         <div className="wrapper">
-            <h2>Turnos</h2>
+            <h2>Seleccione Sucursal</h2>
             <form onSubmit={handleSubmit}>
                 <div className="input-box">
-                    <select
-                        className="form-control dropdown"
-                        value={selectedSucursal}
-                        onChange={handleSucursalChange}
+                    <select 
+                        className="dropdown"
+                        value={selectedBranch}
+                        onChange={handleBranchChange}
                         required
                     >
                         <option value="" disabled>Seleccione una sucursal</option>
-                        {sucursales.map(sucursal => (
-                            <option key={sucursal.COD_UNICOM} value={sucursal.COD_UNICOM}>
-                                {sucursal.NOM_UNICOM}
+                        {branches.map(branch => (
+                            <option key={branch.COD_UNICOM} value={branch.COD_UNICOM}>
+                                {branch.NOM_UNICOM}
                             </option>
                         ))}
                     </select>
                 </div>
-
-                <div className="policy">
-                    <h3>Edemsa 2024</h3>
-                </div>
-
                 {error && <p className="text-danger">{error}</p>}
-
                 <div className="input-box button">
-                    <input type="submit" value="Enviar" />
+                    <input type="submit" value="Confirmar" />
                 </div>
             </form>
         </div>
     );
 }
 
-export default SelectSucursal;
+export default SelectBranch;
