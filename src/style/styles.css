@@ -1,25 +1,25 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
-body{
+body {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #4070f4;
 }
-.wrapper{
+.wrapper {
   position: relative;
   max-width: 430px;
   width: 100%;
   background: #fff;
   padding: 34px;
   border-radius: 6px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 .wrapper h1 {
   margin-bottom: 10px;
@@ -27,13 +27,16 @@ body{
 .wrapper p {
   margin-top: 0;
 }
-.wrapper h2{
+.wrapper h2 {
   position: relative;
   font-size: 22px;
   font-weight: 600;
   color: #333;
 }
-.wrapper h2::before{
+.wrapper button {
+  transition: background-color 0.3s ease;
+}
+.wrapper h2::before {
   content: '';
   position: absolute;
   left: 0;
@@ -43,14 +46,14 @@ body{
   border-radius: 12px;
   background: #4070f4;
 }
-.wrapper form{
+.wrapper form {
   margin-top: 30px;
 }
-.wrapper form .input-box{
+.wrapper form .input-box {
   height: 52px;
   margin: 18px 0;
 }
-form .input-box input{
+form .input-box input {
   height: 100%;
   width: 100%;
   outline: none;
@@ -64,84 +67,113 @@ form .input-box input{
   transition: all 0.3s ease;
 }
 .input-box input:focus,
-.input-box input:valid{
+.input-box input:valid {
   border-color: #4070f4;
 }
-form .policy{
+form .policy {
   display: flex;
   align-items: center;
 }
-form h3{
+form h3 {
   color: #707070;
   font-size: 14px;
   font-weight: 500;
   margin-left: 10px;
 }
-.input-box.button input{
+.input-box.button input {
   color: #fff;
   letter-spacing: 1px;
   border: none;
   background: #4070f4;
   cursor: pointer;
 }
-.input-box.button input:hover{
+.input-box.button input:hover {
   background: #0e4bf1;
 }
-form .text h3{
- color: #333;
- width: 100%;
- text-align: center;
+form .text h3 {
+  color: #333;
+  width: 100%;
+  text-align: center;
 }
-form .text h3 a{
+form .text h3 a {
   color: #4070f4;
   text-decoration: none;
 }
-form .text h3 a:hover{
+form .text h3 a:hover {
   text-decoration: underline;
 }
 form .input-box select.dropdown {
-    height: 52px;
-    width: 100%;
-    padding: 0 15px;
-    font-size: 17px;
-    font-weight: 400;
-    color: #333;
-    border: 1.5px solid #C7BEBE;
-    border-bottom-width: 2.5px;
-    border-radius: 6px;
-    transition: all 0.3s ease;
-    appearance: none; 
-    background-color: white;
-    background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDEyIDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEgMUw2IDZMMTEgMSIgc3Ryb2tlPSIjMDA3MEY0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==') no-repeat right 15px center;
-    background-size: 16px;
-  }
-  form .input-box select.dropdown:focus,
-  form .input-box select.dropdown:valid {
-    border-color: #C7BEBE;
-  }
-  .button-group {
-    display: flex;
-    flex-direction: column; /* Cambiar a columna para alinear los botones verticalmente */
-    gap: 10px;
-    margin-top: 18px;
+  height: 52px;
+  width: 100%;
+  padding: 0 15px;
+  font-size: 17px;
+  font-weight: 400;
+  color: #333;
+  border: 1.5px solid #C7BEBE;
+  border-bottom-width: 2.5px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  appearance: none; 
+  background-color: white;
+  background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDEyIDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEgMUw2IDZMMTEgMSIgc3Ryb2tlPSIjMDA3MEY0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==') no-repeat right 15px center;
+  background-size: 16px;
+}
+form .input-box select.dropdown:focus,
+form .input-box select.dropdown:valid {
+  border-color: #C7BEBE;
+}
+.button-group {
+  display: flex;
+  flex-direction: column; /* Cambiar a columna para alinear los botones verticalmente */
+  gap: 10px;
 }
 .reason-button {
-    background-color: #f0f0f0;
-    border: 1.5px solid #c7bebe;
-    border-radius: 6px;
-    padding: 12px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    font-size: 16px;
-    color: #333;
-    width: 100%; /* Ocupar toda la anchura del contenedor */
-    text-align: center;
+  background-color: #f0f0f0;
+  border: 1.5px solid #c7bebe;
+  border-radius: 6px;
+  padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  font-size: 16px;
+  color: #333;
+  width: 100%; /* Ocupar toda la anchura del contenedor */
+  text-align: center;
 }
 .reason-button:hover {
-    background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }
 .reason-button.selected {
-    background-color: #4070f4;
-    color: #fff;
-    border-color: #4070f4;
+  background-color: #4070f4;
+  color: #fff;
+  border-color: #4070f4;
+}
+.button-container {
+  display: flex; 
+  justify-content: center; 
+  margin-top: 20px; 
+}
+.nav-button {
+  font-size: 20px; 
+  color: #fff;
+  background-color: #4070f4;
+  border: none;
+  border-radius: 5px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 5px 10px; 
+  min-width: 100px; 
+}
+.nav-button:hover {
+  background-color: #0e4bf1;
+}
+.confirm-button {
+  padding: 5px 10px; 
+  min-width: 100px; 
+  cursor: pointer; 
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none; 
+  margin: 0; 
 }

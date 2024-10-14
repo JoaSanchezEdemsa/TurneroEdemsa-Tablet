@@ -93,11 +93,22 @@ function SelectReason() {
                     ))}
                 </div>
                 {error && <p className="text-danger">{error}</p>}
-                {selectedReason && (
-                    <div className="input-box button">
-                        <input type="submit" value="Confirmar" />
-                    </div>
-                )}
+                <div className="button-container">
+                    {selectedReason && (
+                        <>
+                            <button 
+                                type="button" 
+                                className="nav-button" 
+                                onClick={() => navigate(-1)} // Navega a la página anterior
+                            >
+                            ◀ Anterior  {/* Flecha hacia la izquierda */}
+                            </button>
+                            <div className="input-box button">
+                                <input type="submit" value="Confirmar" className="confirm-button" />
+                            </div>
+                        </>
+                    )}
+                </div>
             </form>
         </div>
     );

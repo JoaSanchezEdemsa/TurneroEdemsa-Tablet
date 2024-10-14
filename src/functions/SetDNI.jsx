@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../style/styles.css';
+import '../style/styles.css'; // Asegúrate de que este archivo incluya el nuevo estilo
 
 function SetDNI() {
     const [dni, setDni] = useState('');
@@ -15,18 +15,21 @@ function SetDNI() {
         }
     }, []);
 
-    async function handleSubmit(event) {
-        event.preventDefault();
+    async function handleNext() {
+        if (!dni) {
+            setError('Por favor, ingrese su DNI.');
+            return;
+        }
+
         try {
-            
             localStorage.setItem('dni', dni);
 
             const res = await axios.post('http://turnero:8080/getclientes', { dni });
             console.log(res.data);
             if (res.data.usuarioExiste) {
-                navigate('/paso3'); 
+                navigate('/paso3');
             } else {
-                navigate('/paso2'); 
+                navigate('/paso2');
             }
         } catch (err) {
             console.error('Error al enviar los datos:', err);
@@ -37,23 +40,25 @@ function SetDNI() {
     return (
         <div className="wrapper">
             <h2>Turnos</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e) => e.preventDefault()}>
                 <div className="input-box">
-                    <input 
-                        type="number" 
-                        placeholder="Ingrese su DNI" 
+                    <input
+                        type="number"
+                        placeholder="Ingrese su DNI"
                         className='form-control'
                         value={dni}
                         onChange={e => setDni(e.target.value)}
-                        required 
+                        required
                     />
                 </div>
                 <div className="policy">
                     <h3>Edemsa 2024</h3>
                 </div>
                 {error && <p className="text-danger">{error}</p>}
-                <div className="input-box button">
-                    <input type="Submit" value="Enviar" />
+                <div className="button-container">
+                    <button type="button" onClick={handleNext} className="nav-button">
+                        Siguiente ▶
+                    </button>
                 </div>
             </form>
         </div>
