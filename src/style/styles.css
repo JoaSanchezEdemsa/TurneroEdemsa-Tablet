@@ -151,8 +151,10 @@ form .input-box select.dropdown:valid {
   display: flex; 
   justify-content: center; 
   margin-top: 20px; 
+  align-items: center;
 }
 .nav-button {
+  height: 52.5px;
   font-size: 20px; 
   color: #fff;
   background-color: #4070f4;
