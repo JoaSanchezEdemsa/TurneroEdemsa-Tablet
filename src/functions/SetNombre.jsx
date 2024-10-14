@@ -8,6 +8,13 @@ function SetNOMBRE() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const selectedBranch = localStorage.getItem('selectedBranch');
+        if (!selectedBranch) {
+            navigate('/'); 
+        }
+    }, [navigate]);
+
+    useEffect(() => {
         const savedNombre = localStorage.getItem('nombre');
         if (savedNombre) {
             setNombre(savedNombre);

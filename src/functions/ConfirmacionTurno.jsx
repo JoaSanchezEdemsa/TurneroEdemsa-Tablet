@@ -1,11 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../style/styles.css'; // Asegúrate de tener los estilos necesarios
+import '../style/styles.css'; 
 
 const TurnoRegistrado = () => {
     const navigate = useNavigate();
 
-    // Manejar la redirección al hacer clic en el botón
     const handleRedirect = () => {
         navigate('/');
     };

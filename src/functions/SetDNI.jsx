@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../style/styles.css'; // Asegúrate de que este archivo incluya el nuevo estilo
+import '../style/styles.css'; 
 
 function SetDNI() {
     const [dni, setDni] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const selectedBranch = localStorage.getItem('selectedBranch');
+        if (!selectedBranch) {
+            navigate('/'); 
+        }
+    }, [navigate]);
 
     useEffect(() => {
         const savedDni = localStorage.getItem('dni');
