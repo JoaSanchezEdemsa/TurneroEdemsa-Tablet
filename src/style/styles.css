@@ -22,7 +22,13 @@ body {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 .wrapper h1 {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+}
+.wrapper .subtitle {
+  color: #707070; 
+  font-size: 18px; 
+  margin-bottom: 20px; 
+  display: flex;
 }
 .wrapper p {
   margin-top: 0;
@@ -73,6 +79,8 @@ form .input-box input {
 form .policy {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
+  margin-top: -10px;
 }
 form h3 {
   color: #707070;
@@ -105,7 +113,7 @@ form .text h3 a:hover {
 form .input-box select.dropdown {
   height: 52px;
   width: 100%;
-  padding: 0 40px 0 15px; /* Aumenta el padding derecho para hacer espacio para la flecha */
+  padding: 0 40px 0 15px; 
   font-size: 17px;
   font-weight: 400;
   color: #333;
@@ -124,7 +132,7 @@ form .input-box select.dropdown:valid {
 }
 .button-group {
   display: flex;
-  flex-direction: column; /* Cambiar a columna para alinear los botones verticalmente */
+  flex-direction: column; 
   gap: 10px;
 }
 .reason-button {
@@ -136,7 +144,7 @@ form .input-box select.dropdown:valid {
   transition: background-color 0.3s ease, border-color 0.3s ease;
   font-size: 16px;
   color: #333;
-  width: 100%; /* Ocupar toda la anchura del contenedor */
+  width: 100%; 
   text-align: center;
 }
 .reason-button:hover {
@@ -153,21 +161,57 @@ form .input-box select.dropdown:valid {
   margin-top: 20px; 
   align-items: center;
 }
+.header-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.header-container h2 {
+  margin-left: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+.back-arrow {
+  font-size: 26px; 
+  color: #C7BEBE; 
+  cursor: pointer;
+  transition: color 0.3s ease;
+  margin-top: 6.5px;
+}
+.back-arrow-2{
+  font-size: 48px;
+  color: #C7BEBE;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.back-arrow:hover {
+  color: #0e4bf1; 
+}
+.back-arrow-2:hover{
+  color: #0e4bf1;
+}
 .nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; 
   height: 52.5px;
-  font-size: 20px; 
+  font-size: 20px;
   color: #fff;
   background-color: #4070f4;
   border: none;
   border-radius: 5px;
-  margin: 0 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  padding: 5px 10px; 
-  min-width: 100px; 
+  padding: 5px 10px;
+  min-width: 100px;
 }
 .nav-button:hover {
   background-color: #0e4bf1;
+}
+.next-arrow {
+  font-size: 24px; 
 }
 .confirm-button {
   padding: 5px 10px; 
@@ -178,4 +222,54 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none; 
   margin: 0; 
+}
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 300px;
+}
+.popup-content h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.popup-content ul {
+  list-style-type: none;
+  padding: 0;
+  font-size: 14px;
+}
+.popup-content ul li {
+  margin-bottom: 10px;
+}
+.popup-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 100px;
+}
+.popup-button {
+  padding: 10px 20px;
+  background-color: #4070f4;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  min-width: 100px;
+}
+.popup-button:hover {
+  background-color: #0e4bf1;
 }

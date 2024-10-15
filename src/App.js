@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom"; // Importar Routes y Route
+import { Routes, Route } from "react-router-dom";
 import SetSucursalTablet from "./functions/SetSucursalTablet";
 import SetDNI from "./functions/SetDNI";
 import SetNombre from "./functions/SetNombre";

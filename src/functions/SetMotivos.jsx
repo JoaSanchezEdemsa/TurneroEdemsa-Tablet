@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ConfirmationPopup from './ConfirmacionPopUp';
+import { IoIosArrowBack } from "react-icons/io";
 import '../style/styles.css';
 
 function SelectReason() {
     const [reasons, setReasons] = useState([]);
     const [selectedReason, setSelectedReason] = useState('');
     const [error, setError] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
     const navigate = useNavigate();
     const selectedBranch = localStorage.getItem('selectedBranch');
 
@@ -41,16 +44,18 @@ function SelectReason() {
         setSelectedReason(reasonId);
     }
 
-    async function handleSubmit(event) {
-        event.preventDefault();
+    function handleConfirmClick() {
+        setShowPopup(true);
+    }
 
-        if (!selectedReason) {
-            setError('Por favor, seleccione un motivo.');
-            return;
-        } else {
-            localStorage.setItem('motivo', selectedReason);
-        }
+    function handlePopupClose() {
+        localStorage.removeItem('dni');
+        localStorage.removeItem('nombre');
+        localStorage.removeItem('motivo');
+        navigate('/paso1');
+    }
 
+    async function handlePopupConfirm() {
         try {
             const dni = localStorage.getItem('dni');
             const nombre = localStorage.getItem('nombre');
@@ -74,12 +79,19 @@ function SelectReason() {
             console.error('Error al enviar los datos:', err);
             setError('Hubo un problema al enviar la solicitud.');
         }
+        setShowPopup(false);
     }
 
     return (
         <div className="wrapper">
-            <h2>Seleccione Motivo de la Consulta</h2>
-            <form onSubmit={handleSubmit}>
+            <div className="header-container">
+                <IoIosArrowBack
+                    className="back-arrow-2"
+                    onClick={() => navigate(-1)}
+                />
+                <h2>Seleccione el Motivo de la Consulta</h2>
+            </div>
+            <form onSubmit={handleConfirmClick}>
                 <div className="button-group">
                     {reasons.map(reason => (
                         <button
@@ -95,23 +107,25 @@ function SelectReason() {
                 {error && <p className="text-danger">{error}</p>}
                 <div className="button-container">
                     {selectedReason && (
-                        <>
-                            <button 
-                                type="button" 
-                                className="nav-button" 
-                                onClick={() => navigate(-1)} // Navega a la página anterior
-                            >
-                            ◀ Anterior  {/* Flecha hacia la izquierda */}
-                            </button>
-                            <div className="input-box button">
-                                <input type="submit" value="Confirmar" className="confirm-button" />
-                            </div>
-                        </>
+                        <div className="input-box button">
+                            <input type="button" value="Confirmar" className="confirm-button" onClick={handleConfirmClick} />
+                        </div>
                     )}
                 </div>
             </form>
+
+            {showPopup && (
+                <ConfirmationPopup
+                    dni={localStorage.getItem('dni')}
+                    nombre={localStorage.getItem('nombre')}
+                    motivo={reasons.find(reason => reason.id === selectedReason)?.motivo}
+                    onClose={handlePopupClose}
+                    onConfirm={handlePopupConfirm}
+                />
+            )}
         </div>
     );
 }
 
 export default SelectReason;
+

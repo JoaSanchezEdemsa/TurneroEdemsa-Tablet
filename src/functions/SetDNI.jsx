@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../style/styles.css'; 
+import { IoIosArrowForward } from "react-icons/io";
+import '../style/styles.css';
 
 function SetDNI() {
     const [dni, setDni] = useState('');
@@ -11,7 +12,7 @@ function SetDNI() {
     useEffect(() => {
         const selectedBranch = localStorage.getItem('selectedBranch');
         if (!selectedBranch) {
-            navigate('/'); 
+            navigate('/');
         }
     }, [navigate]);
 
@@ -27,13 +28,12 @@ function SetDNI() {
             setError('Por favor, ingrese su DNI.');
             return;
         }
-
         try {
             localStorage.setItem('dni', dni);
-
             const res = await axios.post('http://turnero:8080/getclientes', { dni });
             console.log(res.data);
             if (res.data.usuarioExiste) {
+                localStorage.setItem('nombre', res.data.cliente.CLIENTE);
                 navigate('/paso3');
             } else {
                 navigate('/paso2');
@@ -46,7 +46,7 @@ function SetDNI() {
 
     return (
         <div className="wrapper">
-            <h2>Turnos</h2>
+            <h2>Solicitar Turno</h2>
             <form onSubmit={(e) => e.preventDefault()}>
                 <div className="input-box">
                     <input
@@ -58,13 +58,11 @@ function SetDNI() {
                         required
                     />
                 </div>
-                <div className="policy">
-                    <h3>Edemsa 2024</h3>
-                </div>
                 {error && <p className="text-danger">{error}</p>}
                 <div className="button-container">
                     <button type="button" onClick={handleNext} className="nav-button">
-                        Siguiente ▶
+                        Siguiente
+                        <IoIosArrowForward className="next-arrow" />
                     </button>
                 </div>
             </form>

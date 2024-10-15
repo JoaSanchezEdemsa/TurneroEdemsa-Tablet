@@ -9,7 +9,6 @@ function SelectBranch() {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    // Cargar la sucursal seleccionada del localStorage y redirigir si ya existe
     useEffect(() => {
         const savedBranch = localStorage.getItem('selectedBranch');
         if (savedBranch) {
@@ -18,7 +17,6 @@ function SelectBranch() {
         }
     }, [navigate]);
 
-    // Obtener las sucursales desde la API
     useEffect(() => {
         async function fetchBranches() {
             try {
@@ -32,14 +30,12 @@ function SelectBranch() {
         fetchBranches();
     }, []);
 
-    // Manejar la selección de una sucursal
     function handleBranchChange(event) {
         const selected = event.target.value;
         setSelectedBranch(selected);
         localStorage.setItem('selectedBranch', selected);
     }
 
-    // Manejar el envío del formulario
     function handleSubmit(event) {
         event.preventDefault();
         if (selectedBranch) {
@@ -54,7 +50,7 @@ function SelectBranch() {
             <h2>Seleccione Sucursal</h2>
             <form onSubmit={handleSubmit}>
                 <div className="input-box">
-                    <select 
+                    <select
                         className="dropdown"
                         value={selectedBranch}
                         onChange={handleBranchChange}

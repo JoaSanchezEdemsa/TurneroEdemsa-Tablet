@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../style/styles.css'; 
+import '../style/styles.css';
 
 const TurnoRegistrado = () => {
     const navigate = useNavigate();
@@ -18,8 +18,8 @@ const TurnoRegistrado = () => {
                 Espere a ser atendido
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                <button 
-                    onClick={handleRedirect} 
+                <button
+                    onClick={handleRedirect}
                     style={{
                         padding: '10px 20px',
                         fontSize: '18px',

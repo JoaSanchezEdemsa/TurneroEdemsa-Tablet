@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../style/styles.css'; // Asegúrate de que este archivo incluya el nuevo estilo
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import '../style/styles.css';
 
 function SetNOMBRE() {
     const [nombre, setNombre] = useState('');
@@ -10,7 +11,7 @@ function SetNOMBRE() {
     useEffect(() => {
         const selectedBranch = localStorage.getItem('selectedBranch');
         if (!selectedBranch) {
-            navigate('/'); 
+            navigate('/');
         }
     }, [navigate]);
 
@@ -29,7 +30,7 @@ function SetNOMBRE() {
 
         try {
             localStorage.setItem('nombre', nombre);
-            navigate('/paso3'); // Navegar a la siguiente página
+            navigate('/paso3');
         } catch (err) {
             console.error('Error al enviar los datos:', err);
             setError('Hubo un error al procesar tu solicitud.');
@@ -37,13 +38,22 @@ function SetNOMBRE() {
     }
 
     function handlePrevious() {
-        navigate('/paso1'); // Navegar a la página anterior
+        navigate('/paso1');
     }
 
     return (
         <div className="wrapper">
-            <h2>Turnos</h2>
+            <div className="header-container">
+                <IoIosArrowBack
+                    className="back-arrow"
+                    onClick={handlePrevious}
+                />
+                <h2>Solicitar Turno</h2>
+            </div>
             <form onSubmit={(e) => e.preventDefault()}>
+                <div className="policy">
+                    <h3>No encontramos tu DNI en el sistema. Ingresa tu nombre </h3>
+                </div>
                 <div className="input-box">
                     <input
                         type="text"
@@ -54,16 +64,11 @@ function SetNOMBRE() {
                         required
                     />
                 </div>
-                <div className="policy">
-                    <h3>Edemsa 2024</h3>
-                </div>
                 {error && <p className="text-danger">{error}</p>}
                 <div className="button-container">
-                    <button type="button" onClick={handlePrevious} className="nav-button">
-                        ◀ Anterior 
-                    </button>
                     <button type="button" onClick={handleNext} className="nav-button">
-                        Siguiente ▶ 
+                        Siguiente
+                        <IoIosArrowForward className="next-arrow" />
                     </button>
                 </div>
             </form>
