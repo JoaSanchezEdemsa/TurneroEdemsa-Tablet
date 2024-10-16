@@ -59,7 +59,7 @@ function SelectReason() {
         try {
             const dni = localStorage.getItem('dni');
             const nombre = localStorage.getItem('nombre');
-            const data = { dni, nombre, motivo: selectedReason, sucursal: selectedBranch };
+            const data = { dni, nombre, motivo: selectedReason, COD_UNICOM: selectedBranch };
 
             const response = await axios.post('http://turnero:8080/submitmotivo', data, {
                 headers: {
