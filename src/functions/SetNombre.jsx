@@ -46,13 +46,19 @@ function SetNOMBRE() {
             <div className="header-container">
                 <IoIosArrowBack
                     className="back-arrow"
-                    onClick={handlePrevious}
+                    onClick={() => {
+                        handlePrevious();
+                        localStorage.removeItem('dni');
+                    }}
                 />
                 <h2>Solicitar Turno</h2>
             </div>
             <form onSubmit={(e) => e.preventDefault()}>
                 <div className="policy">
-                    <h3>No encontramos tu DNI en el sistema. Ingresa tu nombre </h3>
+                    <h3>No encontramos tu DNI/CUIT en el sistema. Ingresa tu nombre </h3>
+                </div>
+                <div className="policy">
+                    <h3>DNI/CUIT: {localStorage.getItem('dni')}</h3>
                 </div>
                 <div className="input-box">
                     <input

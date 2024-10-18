@@ -87,11 +87,20 @@ function SelectReason() {
             <div className="header-container">
                 <IoIosArrowBack
                     className="back-arrow-2"
-                    onClick={() => navigate(-1)}
+                    onClick={() => {
+                        navigate(-1);
+                        localStorage.removeItem('nombre');
+                    }}
                 />
                 <h2>Seleccione el Motivo de la Consulta</h2>
             </div>
             <form onSubmit={handleConfirmClick}>
+                <div className="policy">
+                    <h3>DNI/CUIT: {localStorage.getItem('dni')} </h3>
+                </div>
+                <div className="policy">
+                    <h3>Cliente: {localStorage.getItem('nombre')} </h3>
+                </div>
                 <div className="button-group">
                     {reasons.map(reason => (
                         <button

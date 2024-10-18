@@ -51,7 +51,7 @@ function SetDNI() {
                 <div className="input-box">
                     <input
                         type="number"
-                        placeholder="Ingrese su DNI/QUIL"
+                        placeholder="Ingrese su DNI/CUIL"
                         className='form-control'
                         value={dni}
                         onChange={e => setDni(e.target.value)}
